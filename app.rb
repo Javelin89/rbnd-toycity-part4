@@ -29,9 +29,9 @@ puts "-------------------"
 print Product.all
 #
 #puts "--------------------------------------------------------------"
-#puts "TEST ERROR HANDLING FOR DELETE - COMMENT OUT BEFORE SUBMITTING"
+#puts "TEST ERROR HAND:brand = product[1], :name = product[2], :price = product[3]LING FOR DELETE - COMMENT OUT BEFORE SUBMITTING"
 #puts "--------------------------------------------------------------"
-#print Product.destroy(1000000000000)
+#print Product.destroy(1000000000000):brand = product[1], :name = product[2], :price = product[3]
 #
 # puts "------------------------------------------------------------"
 # puts "TEST ERROR HANDLING FOR FIND - COMMENT OUT BEFORE SUBMITTING"
