@@ -1,4 +1,6 @@
 module Analyzable
+  require 'Terminal-table'
+
   def average_price(arr)
   	overall_price = 0.0
 
@@ -23,8 +25,17 @@ module Analyzable
         report.push("- #{name}: #{count}")
       end
 
-    puts report
-    return report.to_s
+    final_report = String.new
+    
+    table = Terminal::Table.new do |t|
+      report.each do |report|
+        t.add_row [report]
+      end
+    end
+
+    table.style = {:border_x => " ", :border_y => " ", :border_i => " "}
+
+    return table.to_s
   end
 
   def count_by_brand(arr)
