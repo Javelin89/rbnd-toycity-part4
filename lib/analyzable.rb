@@ -10,20 +10,47 @@ module Analyzable
   end
 
   def print_report(all)
-  	p all.flatten.to_s
+    report = Array.new
+  	report.push("Average Price: #{all.average_price(all)}")
+
+    report.push("Inventory by Brand")
+      count_by_brand(all).each do |brand, count|
+        report.push("- #{brand}: #{count}")
+      end
+
+    report.push("Inventory by Name")
+      count_by_name(all).each do |name, count|
+        report.push("- #{name}: #{count}")
+      end
+
+    puts report
+    return report.to_s
   end
 
   def count_by_brand(arr)
-  	count =  arr.length
-  	brand = arr.first.brand
+  	brand_count = Hash.new
 
-    counter = {brand => count}
+    arr.each do |product|
+      if brand_count.has_key?(product.brand)
+        brand_count[product.brand] += 1
+      else
+        brand_count[product.brand] = 1
+      end
+    end
+
+   return brand_count
   end
 
   def count_by_name(arr)
-  	count = arr.length
-  	name = arr.first.name
+    name_count = Hash.new
 
-  	counter = {name => count}
-  end
+    arr.each do |product|
+      if name_count.has_key?(product.name)
+        name_count[product.name] += 1
+      else
+        name_count[product.name] = 1
+      end
+    end
+    return name_count
+end
 end
