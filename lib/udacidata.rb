@@ -63,29 +63,27 @@ class Udacidata
 	end
 
 	def self.find(n)	
-		if n <= self.all.length 
-			return self.all.find { |product| product.id == n }
+		product = self.all.find { |product| product.id == n }
+		if product != nil
+			return product
 		else 
 			raise Errors::ProductNotFoundError, "This item couldn't be found in the database"
 		end
 	end
 
 	def self.destroy(n)
-		if n - 1 <= self.all.length 
-			all_products = self.all
-			deleted_product = all_products.find { |product| product.id == n }
-			all_products.delete(deleted_product)
-				File.delete(@@data_path)
-				CSV.open(@@data_path, "ab") do |csv|
-					csv << ["id", "brand", "product", "price"]
-					all_products.each do |product|
-					csv << [product.id, product.brand, product.name, product.price.to_f]
-				 	end
-				end
-				return deleted_product
-		else
-			raise Errors::ProductNotFoundError, "This item couldn't be found in the database"
+		all_products = self.all
+
+		deleted_product = self.find(n)
+		all_products.delete_if {|product| product.id == deleted_product.id}
+		File.delete(@@data_path)
+		CSV.open(@@data_path, "wb") do |csv|
+			csv << ["id", "brand", "product", "price"]
+			all_products.each do |product|
+			csv << [product.id, product.brand, product.name, product.price.to_f]
+		 	end
 		end
+		return deleted_product
 	end
 
 	def self.where(options={})

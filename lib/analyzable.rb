@@ -1,5 +1,5 @@
 module Analyzable
-  require 'Terminal-table'
+  require 'terminal-table'
 
   def average_price(arr)
   	overall_price = 0.0
